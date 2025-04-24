@@ -19,8 +19,13 @@ try
 
     [~] = fread(fid, totalHeaderLength, 'uint8');
 
+
+    data = [];
     % read the data
-    data = fread(fid, prod(shape), [dataType '=>' dataType]);
+    for i = 1:shape
+        data = [data [fread(fid, 4, [dataType '=>' dataType]); fread(fid, 1, 'uint64=>uint64')]];
+    end
+    
 
     if length(shape)>1 && ~fortranOrder
         data = reshape(data, shape(end:-1:1));

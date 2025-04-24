@@ -47,14 +47,18 @@ try
     % assumptions about its format...
     
     r = regexp(arrayFormat, '''descr''\s*:\s*''(.*?)''', 'tokens');
-    if isempty(r)
-        error('Couldn''t parse array format: "%s"', arrayFormat);
-    end
-    dtNPY = r{1}{1};    
-    
-    littleEndian = ~strcmp(dtNPY(1), '>');
-    
-    dataType = dtypesMatlab{strcmp(dtNPY(2:3), dtypesNPY)};
+    disp(r);
+    % if isempty(r)
+    %     error('Couldn''t parse array format: "%s"', arrayFormat);
+    % end
+    %dtNPY = r{1}{1};    
+
+    %littleEndian = ~strcmp(dtNPY(1), '>');
+    littleEndian = true;
+
+
+    %dataType = dtypesMatlab{strcmp(dtNPY(2:3), dtypesNPY)};
+    dataType = 'single';
         
     r = regexp(arrayFormat, '''fortran_order''\s*:\s*(\w+)', 'tokens');
     fortranOrder = strcmp(r{1}{1}, 'True');
