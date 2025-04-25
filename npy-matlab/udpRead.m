@@ -3,13 +3,15 @@ global data;
 data = [];
 
 
+port = 9870;
+ip_id = "127.0.0.1";
+
+u = udpport("datagram", "LocalHost", ip_id, "LocalPort", port);
+disp("Lesting on port" + num2str(port));
+configureCallback(u,"datagram", 1 ,@readUDP)
 
 
-u = udpport("datagram", "LocalHost", "127.0.0.1", "LocalPort", 9870);
-configureCallback(u,"datagram", 1 ,@readUDPData)
-
-
-function readUDPData(src,~)
+function readUDP(src,~)
     global data;
     disp("Data received:");
     read_data = read(src,1,"string");
