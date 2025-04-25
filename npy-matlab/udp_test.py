@@ -51,7 +51,7 @@ def parse_data_to_numpy(strain_1, strain_2, strain_3, temp):
     parsed_data = np.array((strain_1, strain_2, strain_3, temp, timestamp), dtype=data_type)    
     
 
-    if temp > -40 and temp < 125:  # Filter out invalid temperature values   
+    if temp > -40:  # Filter out invalid temperature values   
         # Append to global NumPy array
         global_data = np.append(global_data, parsed_data)        
         # Convert the parsed data to a JSON string and send it over UDP
@@ -71,9 +71,11 @@ def parse_data_to_numpy(strain_1, strain_2, strain_3, temp):
 
 def main():
     global global_data
-    for i in range (300):
+    i = 0;
+    while True:
         parse_data_to_numpy(float(i), float(i), float(i), int(i+10))
-        time.sleep(2)
+        time.sleep(0.1)
+        i = i+1
 
     print(global_data)
 
